@@ -42,16 +42,19 @@ public class DBConfig {
     @Bean
     DriverManagerDataSource dataSource() {
 
-        URI dbUri = null;
+        String username = "";
+        String password ="";
+        String dbUrl = "";
+
         try{
-            dbUri = new URI(UriString);
+            URI dbUri = new URI(System.getenv("DATABASE_URL"));
+            username = dbUri.getUserInfo().split(":")[0];
+            password = dbUri.getUserInfo().split(":")[1];
+            dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
+
         }catch (URISyntaxException e){
             System.out.println(e.getMessage());
         }
-
-        String username = dbUri.getUserInfo().split(":")[0];
-        String password = dbUri.getUserInfo().split(":")[1];
-        String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
 
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
         dataSource.setDriverClassName("org.postgresql.Driver");
