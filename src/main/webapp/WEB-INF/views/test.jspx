@@ -8,5 +8,37 @@
 
     <h1>Provider Listing</h1>
 
+    <c:if test="${not empty news}">
+        <table>
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Content</th>
+                <th>Date</th>
+                <th>Categories</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${news}" var="item">
+                <tr>
+                    <td>${item.id}</td>
+                    <td>${item.name}</td>
+                    <td>${item.content}</td>
+                    <td>${item.date}</td>
+                    <td>
+                        <ul>
+                            <c:forEach items="${item.categorys}" var="categor">
+                                <li>${categor.name}</li>
+                            </c:forEach>
+                        </ul>
+                    </td>
+
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </c:if>
+
 
 </div>

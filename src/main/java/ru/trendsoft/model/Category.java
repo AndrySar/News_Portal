@@ -29,8 +29,8 @@ public class Category {
     }
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
-    @JoinTable(name = "news_categories", joinColumns = { @JoinColumn(name = "category_id") },
-            inverseJoinColumns = { @JoinColumn(name = "news_id") })
+    @JoinTable(name = "news_categories", joinColumns = { @JoinColumn(name = "categories_id", referencedColumnName = "id") },
+            inverseJoinColumns = { @JoinColumn(name = "news_id", referencedColumnName = "id") })
     public Set<News> getNews() {
         return news;
     }

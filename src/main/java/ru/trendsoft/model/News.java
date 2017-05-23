@@ -1,6 +1,7 @@
 package ru.trendsoft.model;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,6 +20,7 @@ public class News {
     private Long id;
     private String name;
     private String content;
+    private Date date;
     private Set<Category> categorys = new HashSet<>();
 
     public News(){};
@@ -47,11 +49,15 @@ public class News {
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
     @JoinTable(name = "news_categories",
-            joinColumns={@JoinColumn(name = "news_id")},
-            inverseJoinColumns={@JoinColumn(name = "category_id")})
+            joinColumns={@JoinColumn(name = "news_id", referencedColumnName = "id")},
+            inverseJoinColumns={@JoinColumn(name = "categories_id", referencedColumnName = "id")})
     public Set<Category> getCategorys() {
         return categorys;
     }
+
+    @Temporal(TemporalType.DATE)
+    @Column(name = "date")
+    public Date getDate(){ return date; }
 
 
     public void setId(Long id) {
@@ -69,6 +75,8 @@ public class News {
     public void setCategorys(Set<Category> categorys) {
         this.categorys = categorys;
     }
+
+    public void setDate(Date date){ this.date = date; }
 
     @Override
     public boolean equals(Object obj) {
