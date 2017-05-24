@@ -1,6 +1,7 @@
 package ru.trendsoft.model;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -13,15 +14,20 @@ import java.util.Set;
 @Table(name = "news")
 @NamedQueries({
         @NamedQuery(name = "News.findAll", query = "select p from News p"),
-        @NamedQuery(name = "News.findById", query = "select distinct p from News p where p.id = :id")
+        @NamedQuery(name = "News.findById", query = "select distinct p from News p where p.id = :id"),
+        @NamedQuery(name = "News.update", query = "update News p set p.name = :name, p.description = :description, p.content = :content, p.date = :date where p.id = :id")
 })
 public class News {
 
     private Long id;
     private String name;
+    private String description;
     private String content;
     private Date date;
     private Set<Category> categorys = new HashSet<>();
+    private String formatDate;
+
+
 
     public News(){};
 
@@ -42,6 +48,9 @@ public class News {
         return name;
     }
 
+    @Column(name = "description")
+    public String getDescription() { return description; }
+
     @Column(name = "content")
     public String getContent() {
         return content;
@@ -59,6 +68,10 @@ public class News {
     @Column(name = "date")
     public Date getDate(){ return date; }
 
+    @Transient
+    public String getFormatDate() {
+        return formatDate;
+    }
 
     public void setId(Long id) {
         this.id = id;
@@ -68,6 +81,8 @@ public class News {
         this.name = name;
     }
 
+    public void setDescription(String description) { this.description = description; }
+
     public void setContent(String content) {
         this.content = content;
     }
@@ -76,7 +91,12 @@ public class News {
         this.categorys = categorys;
     }
 
-    public void setDate(Date date){ this.date = date; }
+    public void setDate(Date date){
+        this.date = date;
+        this.formatDate = (new SimpleDateFormat(" E d MMMM, yyyy").format(this.date));
+    }
+
+
 
     @Override
     public boolean equals(Object obj) {
@@ -91,4 +111,6 @@ public class News {
     public String toString() {
         return "[id=" + this.id + ", name=" + this.name + ", content=" + this.content + "]";
     }
+
+
 }

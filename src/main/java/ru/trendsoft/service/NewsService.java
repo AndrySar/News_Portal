@@ -13,4 +13,5 @@ public interface NewsService {
     public News findById(Long id);
     public News save(News news);
     public void delete(News news);
+    public void update(News news);
 }

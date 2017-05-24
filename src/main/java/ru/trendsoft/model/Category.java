@@ -10,6 +10,10 @@ import java.util.Set;
 
 @Entity
 @Table(name = "categories")
+@NamedQueries({
+        @NamedQuery(name = "Category.findAll", query = "select p from Category p"),
+        @NamedQuery(name = "Category.findById", query = "select distinct p from Category p where p.id = :id")
+})
 public class Category {
 
     private Long id;

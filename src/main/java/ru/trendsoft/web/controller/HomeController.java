@@ -25,9 +25,24 @@ public class HomeController {
     public String test(Model uiModel){
 
         List<News> newsList = newsService.findAll();
+        String[] arr = {"Cat1", "Cat2", "Cat3"};
         uiModel.addAttribute("news", newsList);
+        uiModel.addAttribute("arrCat", toJavascriptArray(arr));
 
-        return "test";
+        return "addNews";
+    }
+
+    public String toJavascriptArray(String[] arr){
+        StringBuffer sb = new StringBuffer();
+        sb.append("[");
+        for(int i=0; i<arr.length; i++){
+            sb.append("\"").append(arr[i]).append("\"");
+            if(i+1 < arr.length){
+                sb.append(",");
+            }
+        }
+        sb.append("]");
+        return sb.toString();
     }
 
 }

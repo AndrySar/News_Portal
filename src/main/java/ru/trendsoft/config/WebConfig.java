@@ -24,13 +24,16 @@ public class WebConfig extends WebMvcConfigurerAdapter {
     public UrlBasedViewResolver setupViewResolver() {
         UrlBasedViewResolver resolver = new UrlBasedViewResolver();
         resolver.setPrefix("/WEB-INF/views/");
-        resolver.setSuffix(".jspx");
+        resolver.setSuffix(".jsp");
         resolver.setViewClass(InternalResourceView.class);
         return resolver;
     }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**").addResourceLocations("/WEB-INF/resources/*");
+        registry.addResourceHandler("/js/**").addResourceLocations("/resources/js/");
+        registry.addResourceHandler("/fonts/**").addResourceLocations("/resources/fonts/");
+        registry.addResourceHandler("/css/**").addResourceLocations("/resources/css/");
+        registry.addResourceHandler("/images/**").addResourceLocations("/resources/images/");
     }
 }

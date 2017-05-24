@@ -52,4 +52,15 @@ public class NewsServiceImpl implements NewsService{
         em.remove(mergedNews);
 //        log.info("Provider with id: " + provider.getId() + " deleted successfully");
     }
+
+    @Transactional(readOnly = false)
+    public void update(News news) {
+        TypedQuery<News> query = em.createNamedQuery("News.update", News.class);
+        query.setParameter("id", news.getId());
+        query.setParameter("name", news.getName());
+        query.setParameter("description", news.getDescription());
+        query.setParameter("content", news.getContent());
+        query.setParameter("date", news.getDate());
+        query.executeUpdate();
+    }
 }
