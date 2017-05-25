@@ -29,7 +29,7 @@ public class HomeController {
         uiModel.addAttribute("news", newsList);
         uiModel.addAttribute("arrCat", toJavascriptArray(arr));
 
-        return "addNews";
+        return "index";
     }
 
     public String toJavascriptArray(String[] arr){

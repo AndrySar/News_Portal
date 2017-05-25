@@ -1,6 +1,7 @@
 package ru.trendsoft.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,14 +15,13 @@ import java.util.Set;
         @NamedQuery(name = "Category.findAll", query = "select p from Category p"),
         @NamedQuery(name = "Category.findById", query = "select distinct p from Category p where p.id = :id")
 })
-public class Category {
+public class Category implements Serializable {
 
     private Long id;
     private String name;
     private Set<News> news = new HashSet<>();
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     public Long getId() {
         return id;
@@ -32,9 +32,9 @@ public class Category {
         return name;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
-    @JoinTable(name = "news_categories", joinColumns = { @JoinColumn(name = "categories_id", referencedColumnName = "id") },
-            inverseJoinColumns = { @JoinColumn(name = "news_id", referencedColumnName = "id") })
+    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE })
+    @JoinTable(name = "news_categories", joinColumns = @JoinColumn(name = "categories_id", referencedColumnName = "id") ,
+            inverseJoinColumns =  @JoinColumn(name = "news_id", referencedColumnName = "id"))
     public Set<News> getNews() {
         return news;
     }
@@ -49,6 +49,15 @@ public class Category {
 
     public void setNews(Set<News> news) {
         this.news = news;
+    }
+
+    public void setNews(News news) {
+        this.news.add(news);
+    }
+
+    @Transient
+    public String getIdAsString() {
+        return new Long(id).toString();
     }
 
     @Override

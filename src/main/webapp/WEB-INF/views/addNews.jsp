@@ -7,6 +7,9 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags/form" %>
 
 <%--Header--%>
 <jsp:include page="include/header.jsp"/>
@@ -15,8 +18,8 @@
 <div class="main-body">
     <div class="wrap">
         <ol class="breadcrumb">
-            <li><a href="index.html">Home</a></li>
-            <li class="active">Single Page</li>
+            <li><a href="${pageContext.request.contextPath}/news">News</a></li>
+            <li class="active">Add News</li>
         </ol>
         <div class="single-page">
                     <div class="col-md-8 content-left single-post">
@@ -26,27 +29,30 @@
                             </header>
                         </div>
                             <%--form to add news--%>
-                            <form data-toggle="validator" role="form">
+                            <form:form action="${pageContext.request.contextPath}/news/add" method="post" modelAttribute="newsObject" accept-charset="UTF-8">
                                 <div class="form-group">
-                                    <label for="title" class="control-label">Title</label>
-                                    <input type="text" class="form-control" id="title" placeholder="News Title"
-                                           required>
+                                    <label for="title" class="control-label">Title:</label>
+                                    <input type="text" class="form-control" name="name" id="title" placeholder="News Title" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="description">Short description</label>
-                                    <textarea class="form-control" id="description" rows="3" required></textarea>
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="content">Content</label>
-                                    <textarea class="form-control" id="content" rows="5" required></textarea>
+                                    <label for="description">Short description:</label>
+                                    <textarea class="form-control" name="description" id="description" rows="3" required></textarea>
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="published-date">Date</label>
-                                    <input class="form-control" type="date" value="2011-08-19" id="published-date">
+                                    <label for="content">Content:</label>
+                                    <textarea class="form-control" name="content" id="content" rows="5" required></textarea>
                                 </div>
+
+                                <div class="form-group">
+                                    <label for="cat">Category(max 5):</label>
+                                    <form:select class="selectpicker" multiple="true" id="cat" path="categorys" data-max-options="5">
+                                        <form:options items="${categories}" itemValue="id" itemLabel="name"/>
+                                    </form:select>
+                                </div>
+
                                 <div class="clearfix"></div>
+
                                 <div class="container-fluid">
                                     <div class="pull-right" >
                                         <div class="form-group">
@@ -56,13 +62,12 @@
                                         </div>
                                     </div>
                                 </div>
-                            </form>
+
+                            </form:form>
                             <div class="clearfix"></div>
                         </div>
                     </div>
                 </div>
-
-
             </div>
             <div class="col-md-4 side-bar">
                 <div class="newsletter">
@@ -82,10 +87,6 @@
     </div>
 </div>
 
-<script>
-    var myArray = ${arrCat};
-    console.log(myArray);
-</script>
 
 <%--Footer--%>
 <jsp:include page="include/footer.jsp"/>

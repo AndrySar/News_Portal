@@ -1,23 +1,27 @@
 package ru.trendsoft.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
  * Created by Andry on 21.05.17.
  */
 
+// @NamedQuery(name = "News.update", query = "update News p set p.name = :name, p.description = :description, p.content = :content, p.date = :date where p.id = :id")
+
 @Entity
 @Table(name = "news")
 @NamedQueries({
         @NamedQuery(name = "News.findAll", query = "select p from News p"),
-        @NamedQuery(name = "News.findById", query = "select distinct p from News p where p.id = :id"),
-        @NamedQuery(name = "News.update", query = "update News p set p.name = :name, p.description = :description, p.content = :content, p.date = :date where p.id = :id")
+        @NamedQuery(name = "News.findById", query = "select distinct p from News p where p.id = :id")
+
 })
-public class News {
+public class News implements Serializable {
 
     private Long id;
     private String name;
@@ -28,7 +32,6 @@ public class News {
     private String formatDate;
 
 
-
     public News(){};
 
     public News(String name, String content){
@@ -37,28 +40,28 @@ public class News {
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     public Long getId() {
         return id;
     }
 
-    @Column(name = "name")
+    @Column(name = "name", length = 500 )
     public String getName() {
         return name;
     }
 
-    @Column(name = "description")
+    @Column(name = "description", length = 1000 )
     public String getDescription() { return description; }
 
-    @Column(name = "content")
+    @Column(name = "content", length = 5000 )
     public String getContent() {
         return content;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
     @JoinTable(name = "news_categories",
-            joinColumns={@JoinColumn(name = "news_id", referencedColumnName = "id")},
+            joinColumns=@JoinColumn(name = "news_id", referencedColumnName = "id"),
             inverseJoinColumns={@JoinColumn(name = "categories_id", referencedColumnName = "id")})
     public Set<Category> getCategorys() {
         return categorys;
@@ -91,6 +94,14 @@ public class News {
         this.categorys = categorys;
     }
 
+    public void setCategorys(Category category) {
+        this.categorys.add(category);
+    }
+
+    public void setCategorys(List<Category> categoryList) {
+        this.categorys.addAll(categoryList);
+    }
+
     public void setDate(Date date){
         this.date = date;
         this.formatDate = (new SimpleDateFormat(" E d MMMM, yyyy").format(this.date));
@@ -109,7 +120,7 @@ public class News {
 
     @Override
     public String toString() {
-        return "[id=" + this.id + ", name=" + this.name + ", content=" + this.content + "]";
+        return "[id=" + this.id + ", name=" + this.name + ", description=" + this.description + ", content=" + this.content + "]";
     }
 
 

@@ -14,9 +14,12 @@
     <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet" type='text/css'>
     <link href="${pageContext.request.contextPath}/css/style.css" rel="stylesheet" media="all">
 
+    <link href="${pageContext.request.contextPath}/css/bootstrap-select.min.css" rel="stylesheet" type='text/css'>
+
     <%--For Bootstrap's JavaScript plugins--%>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap-select.min.js"></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>

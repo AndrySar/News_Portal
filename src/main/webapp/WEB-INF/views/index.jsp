@@ -54,20 +54,21 @@
                                 <div class="container-fluid">
                                     <div class="pull-right">
                                         <div>
-                                            <a href="#" class="btn btn-default btn-sm">
+                                            <a href=${pageContext.request.contextPath}/news/${item.id} class="btn btn-default btn-sm">
                                                 <span class="glyphicon glyphicon-chevron-right"></span> Read More
                                             </a>
                                             <a href="#" class="btn btn-default btn-sm">
                                                 <span class="glyphicon glyphicon-edit"></span> Edit
                                             </a>
-                                            <a href="#" class="btn btn-default btn-sm">
-                                                <span class="glyphicon glyphicon-trash"></span> Trash
+                                            <a href=${pageContext.request.contextPath}/news/delete/${item.id} class="btn btn-default btn-sm">
+                                                <span class="glyphicon glyphicon-trash"></span> Delete
                                             </a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </c:forEach>
+                        <div class="clearfix"></div>
                         <div class="container-fluid">
                             <div class="pull-right">
                                 <a href="#" class="btn btn-info btn-lg">
@@ -95,13 +96,20 @@
 </div>
 <!-- content-section-ends-here -->
 
+<script>
+    'use strict'
+    function getUrlParameter(name) {
+        name = name.replace(/[\[]/, '\\[').replace(/[\]]/, '\\]');
+        var regex = new RegExp('[\\?&]' + name + '=([^&#]*)');
+        var results = regex.exec(location.search);
+        return results === null ? '' : decodeURIComponent(results[1].replace(/\+/g, ' '));
+    };
 
-<c:if test="${not empty message}">
-    <script>
-        var message = ${message};
-        alert(message);
-    </script>
-</c:if>
+    let message = getUrlParameter('message');
+    console.log(massege);
+
+
+</script>
 
 
 <jsp:include page="include/footer.jsp"/>

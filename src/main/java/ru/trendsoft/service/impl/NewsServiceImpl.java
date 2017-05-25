@@ -21,21 +21,25 @@ public class NewsServiceImpl implements NewsService{
     @PersistenceContext
     private EntityManager em;
 
-    @Transactional(readOnly = true)
+    @Transactional
     public List<News> findAll() {
         return em.createNamedQuery("News.findAll", News.class).getResultList();
     }
 
-    @Transactional(readOnly = true)
+    @Transactional
     public News findById(Long id) {
         TypedQuery<News> query = em.createNamedQuery("News.findById", News.class);
         query.setParameter("id", id);
-        return query.getSingleResult();
+        List<News> list = query.getResultList();
+        if(!list.isEmpty()){
+           return list.get(0);
+        }
+        return null;
     }
 
-    @Transactional(readOnly = false)
+    @Transactional
     public News save(News news) {
-        if (news != null && news.getId() == null) {
+        if (news.getId() == null) {
 //            log.info("Inserting new provider");
             em.persist(news);
         } else {
@@ -46,21 +50,21 @@ public class NewsServiceImpl implements NewsService{
         return news;
     }
 
-    @Transactional(readOnly = false)
+    @Transactional
     public void delete(News news) {
         News mergedNews = em.merge(news);
         em.remove(mergedNews);
 //        log.info("Provider with id: " + provider.getId() + " deleted successfully");
     }
 
-    @Transactional(readOnly = false)
+    @Transactional
     public void update(News news) {
-        TypedQuery<News> query = em.createNamedQuery("News.update", News.class);
-        query.setParameter("id", news.getId());
-        query.setParameter("name", news.getName());
-        query.setParameter("description", news.getDescription());
-        query.setParameter("content", news.getContent());
-        query.setParameter("date", news.getDate());
-        query.executeUpdate();
+//        TypedQuery<News> query = em.createNamedQuery("News.update", News.class);
+//        query.setParameter("id", news.getId());
+//        query.setParameter("name", news.getName());
+//        query.setParameter("description", news.getDescription());
+//        query.setParameter("content", news.getContent());
+//        query.setParameter("date", news.getDate());
+//        query.executeUpdate();
     }
 }
