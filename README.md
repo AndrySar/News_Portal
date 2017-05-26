@@ -12,7 +12,7 @@
     * создание и редактирование новости
     * удаление новости
 
-[Проект на Heroku](http://myhuapplication.herokuapp.com/)
+[Проект на Heroku](https://news-portal-spring.herokuapp.com/news)
 
 # Стек технологий
 

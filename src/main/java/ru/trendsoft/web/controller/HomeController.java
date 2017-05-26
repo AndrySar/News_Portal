@@ -19,9 +19,6 @@ import java.util.List;
 @Controller
 public class HomeController {
 
-    @Autowired
-    private NewsService newsService;
-
     @RequestMapping(method = RequestMethod.GET)
     public ModelAndView test(Model uiModel){
         return new ModelAndView("redirect:/news");
