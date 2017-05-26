@@ -22,6 +22,7 @@ public class WebInitializer implements WebApplicationInitializer {
     public void onStartup(ServletContext servletContext) throws ServletException {
         WebApplicationContext context = getContext();
         servletContext.addListener(new ContextLoaderListener(context));
+        servletContext.setInitParameter("defaultHtmlEscape", "true");
         ServletRegistration.Dynamic dispatcher = servletContext.addServlet("DispatcherServlet", new DispatcherServlet(context));
         dispatcher.setLoadOnStartup(1);
         dispatcher.addMapping("/");
@@ -32,22 +33,4 @@ public class WebInitializer implements WebApplicationInitializer {
         context.setConfigLocation("ru.trendsoft.config");
         return context;
     }
-
-    /**
-     * added to load spring security filter in root context (created in onStartup())
-     */
-//    @Override
-//    protected Class<?>[] getRootConfigClasses() {
-//        return new Class<?>[]{WebConfig.class};
-//    }
-//
-//    @Override
-//    protected String[] getServletMappings() {
-//        return new String[0];
-//    }
-//
-//    @Override
-//    protected Class<?>[] getServletConfigClasses() {
-//        return new Class<?>[0];
-//    }
 }

@@ -32,7 +32,7 @@ public class Category implements Serializable {
         return name;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE })
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "news_categories", joinColumns = @JoinColumn(name = "categories_id", referencedColumnName = "id") ,
             inverseJoinColumns =  @JoinColumn(name = "news_id", referencedColumnName = "id"))
     public Set<News> getNews() {

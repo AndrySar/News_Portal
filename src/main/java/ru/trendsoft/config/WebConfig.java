@@ -24,12 +24,6 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 
     @Bean
     public UrlBasedViewResolver setupViewResolver() {
-//        UrlBasedViewResolver resolver = new UrlBasedViewResolver();
-//        resolver.setPrefix("/WEB-INF/views/");
-//        resolver.setSuffix(".jsp");
-//        resolver.setViewClass(InternalResourceView.class);
-//        return resolver;
-
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
         viewResolver.setViewClass(JstlView.class);
         viewResolver.setPrefix("/WEB-INF/views/");

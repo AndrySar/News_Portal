@@ -20,41 +20,30 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap-select.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/custom.js"></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 </head>
 <body>
-<!-- header-section -->
-<div class="header">
-    <div class="header-top">
-        <div class="wrap">
-            <div class="top-menu">
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About Us</a></li>
-                    <li><a href="privacy-policy.html">Privacy Policy</a></li>
-                    <li><a href="contact.html">Contact Us</a></li>
-                </ul>
+    <!-- header-section-start -->
+    <div class="header">
+        <div class="header-top">
+            <div class="wrap">
+                <div class="top-menu"></div>
+                <div class="clearfix"></div>
             </div>
-            <div class="clearfix"></div>
         </div>
-    </div>
-    <div class="header-bottom">
-        <div class="navigation">
-            <nav class="navbar navbar-default" role="navigation">
-                <div class="wrap">
-                    <div class="navbar-header">
-                        <%--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">--%>
-                        <%--<span class="sr-only">Toggle navigation</span>--%>
-                        <%--<span class="icon-bar"></span>--%>
-                        <%--<span class="icon-bar"></span>--%>
-                        <%--<span class="icon-bar"></span>--%>
-                        <%--</button>--%>
+        <div class="header-bottom">
+            <div class="navigation">
+                <nav class="navbar navbar-default" role="navigation">
+                    <div class="wrap">
+                        <div class="navbar-header">
+                        </div>
+                        <!--/.navbar-header-->
                     </div>
-                    <!--/.navbar-header-->
-                </div>
-            </nav>
+                </nav>
+            </div>
         </div>
     </div>
-</div>
+    <!-- header-section-end -->

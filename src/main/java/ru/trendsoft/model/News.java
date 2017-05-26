@@ -12,13 +12,13 @@ import java.util.Set;
  * Created by Andry on 21.05.17.
  */
 
-// @NamedQuery(name = "News.update", query = "update News p set p.name = :name, p.description = :description, p.content = :content, p.date = :date where p.id = :id")
-
 @Entity
 @Table(name = "news")
 @NamedQueries({
         @NamedQuery(name = "News.findAll", query = "select p from News p"),
-        @NamedQuery(name = "News.findById", query = "select distinct p from News p where p.id = :id")
+        @NamedQuery(name = "News.findById", query = "select distinct p from News p where p.id = :id"),
+        @NamedQuery(name = "News.findByTitleAndContent", query = "select p from News p where p.name like :search or p.content like :search"),
+        @NamedQuery(name = "News.findByCategoryId", query = "select p from News p join p.categorys g where g.id = :categoryId")
 
 })
 public class News implements Serializable {
@@ -59,7 +59,7 @@ public class News implements Serializable {
         return content;
     }
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE})
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "news_categories",
             joinColumns=@JoinColumn(name = "news_id", referencedColumnName = "id"),
             inverseJoinColumns={@JoinColumn(name = "categories_id", referencedColumnName = "id")})
@@ -106,8 +106,6 @@ public class News implements Serializable {
         this.date = date;
         this.formatDate = (new SimpleDateFormat(" E d MMMM, yyyy").format(this.date));
     }
-
-
 
     @Override
     public boolean equals(Object obj) {

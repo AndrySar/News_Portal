@@ -1,5 +1,6 @@
 package ru.trendsoft.service.impl;
 
+import org.apache.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.trendsoft.model.News;
@@ -21,12 +22,14 @@ public class NewsServiceImpl implements NewsService{
     @PersistenceContext
     private EntityManager em;
 
-    @Transactional
+    private Logger logger = Logger.getLogger(NewsServiceImpl.class);
+
+    @Transactional(readOnly = true)
     public List<News> findAll() {
         return em.createNamedQuery("News.findAll", News.class).getResultList();
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public News findById(Long id) {
         TypedQuery<News> query = em.createNamedQuery("News.findById", News.class);
         query.setParameter("id", id);
@@ -37,34 +40,37 @@ public class NewsServiceImpl implements NewsService{
         return null;
     }
 
-    @Transactional
+    @Transactional(readOnly = false)
     public News save(News news) {
         if (news.getId() == null) {
-//            log.info("Inserting new provider");
+            logger.info("Inserting new News");
             em.persist(news);
         } else {
             em.merge(news);
-//            log.info("Updating existing provider");
+            logger.info("Updating existing News");
         }
-//        log.info("Provider saved with id: " + provider.getId());
+        logger.info("News saved with id: " + news.getId());
         return news;
     }
 
-    @Transactional
+    @Transactional(readOnly = false)
     public void delete(News news) {
         News mergedNews = em.merge(news);
         em.remove(mergedNews);
-//        log.info("Provider with id: " + provider.getId() + " deleted successfully");
+        logger.info("Provider with id: " + mergedNews.getId() + " deleted successfully");
     }
 
-    @Transactional
-    public void update(News news) {
-//        TypedQuery<News> query = em.createNamedQuery("News.update", News.class);
-//        query.setParameter("id", news.getId());
-//        query.setParameter("name", news.getName());
-//        query.setParameter("description", news.getDescription());
-//        query.setParameter("content", news.getContent());
-//        query.setParameter("date", news.getDate());
-//        query.executeUpdate();
+    @Transactional(readOnly = true)
+    public List<News> findByTitleContent(String search) {
+        TypedQuery<News> query = em.createNamedQuery("News.findByTitleAndContent", News.class);
+        query.setParameter("search", "%"+search+"%");
+        return query.getResultList();
+    }
+
+    @Transactional(readOnly = true)
+    public List<News> findByCategoryId(Long id) {
+        TypedQuery<News> query = em.createNamedQuery("News.findByCategoryId", News.class);
+        query.setParameter("categoryId", id );
+        return query.getResultList();
     }
 }

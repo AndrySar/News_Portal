@@ -944,6 +944,17 @@ h3.side-title-head {
 	background:#fff;           /*Main Color*/
 	color:#555;
 }
+.div_margin_top {
+	margin-top:2em;
+}
+
+.blog_author {
+	display: block;
+	overflow: hidden;
+	margin: 0 10px 50px 0;
+	padding: 20px 20px;
+}
+
 .accordation_menu input:checked + label,
 .accordation_menu input:checked + label:hover{ 
 	background: #84754e;
