@@ -7,22 +7,22 @@
 Каждая категория содержит название, и к ней может быть привязано несколько новостей.
 
 Приложение должно предоставлять следующиевозможности по работе с новостями:
-    * ul просматривать список новостей
-    * ul поиск новости по категории (возможность выбрать из существующих категорий),названию и содержанию
-    * ul создание и редактирование новости
-    * ul удаление новости
+    * просматривать список новостей
+    * поиск новости по категории (возможность выбрать из существующих категорий),названию и содержанию
+    * создание и редактирование новости
+    * удаление новости
 
 [Проект на Heroku](http://myhuapplication.herokuapp.com/)
 
 # Стек технологий
 
-* ul Spring, Spring MVC
-* ul Maven
-* ul PostgreSQL
-* ul JPA, Hibernate
-* ul Appache Tomcat
-* ul Bootstrap template
-* ul JUnit4
+* Spring, Spring MVC
+* Maven
+* PostgreSQL
+* JPA, Hibernate
+* Appache Tomcat
+* Bootstrap template
+* JUnit4
 
 ## Установка
 
@@ -31,7 +31,7 @@
 ## Tесты
 
 Тестирование реализовано с помощью JUnit4
- * ul `TestMainController` - тесты контроллера MainController
- * ul `TestNewsService`- тесты сервиса по работе с новостями NewsService
+ * `TestMainController` - тесты контроллера MainController
+ * `TestNewsService`- тесты сервиса по работе с новостями NewsService
 
 
